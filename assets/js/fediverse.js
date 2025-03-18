@@ -15,10 +15,11 @@ if (id) {
         .mastodon-comment .content {margin-left: 4rem; line-height: calc(var(--baselineStretch) * 1.272)}
         .mastodon-comment .par a {max-width: 100%; vertical-align: bottom; white-space: break-spaces}
         .mastodon-comment .attachments * {width: 100%; height: auto}
-        .mastodon-comment > footer {margin-top: 1rem; margin-left: 3.5rem}
+        .mastodon-comment > footer {margin-top: 1rem; margin-left: 3.5rem; white-space: nowrap;}
         .mastodon-comment > footer .stat {display: inline-flex; flex-shrink: 0; gap: 5pt}
-        .stat a {display: inline-flex; align-items: center; padding: 2pt; color: var(--mid); gap: 2pt}
-        .stat a::before {vertical-align: text-top}
+        .stat > * {display: inline-flex; align-items: center; padding: 2pt; color: var(--mid); gap: 2pt;}
+        .stat > *::before {vertical-align: text-top; font-family: 'base-ui';}
+        .stat > * > span {font-size: 0.8em}
         a.replies.active, a.reblogs.active {color: var(--ac)}
         a.favourites.active {color: var(--i3i)}
         .mastodon-comment .date {margin-left: auto; padding-left: 1rem; color: var(--mid); font-size: calc(10pt * var(--fontScale))}
@@ -96,9 +97,7 @@ if (id) {
                 </header>
                 <div class="content">
                     <div class="par" data-bionRead-safe>${toot.content}</div>
-                    <div class="attachments">
-                        ${toot.media_attachments.map(renderAttachment).join('')}
-                    </div>
+                    <div class="attachments">${toot.media_attachments.map(renderAttachment).join('')}</div>
                 </div>
                 <footer>
                     <div class="stat">
@@ -126,13 +125,13 @@ if (id) {
 
     const toot_stats = toot => `
         <a class="replies ${toot_active(toot, 'replies')}" href="${toot.url}" rel="nofollow" aria-label="${i18nreplies}">
-            ${toot_count(toot, 'replies')}
+            <span>${toot_count(toot, 'replies')}</span>
         </a>
         <a class="reblogs ${toot_active(toot, 'reblogs')}" href="${toot.url}" rel="nofollow" aria-label="${i18nreblogs}">
-            ${toot_count(toot, 'reblogs')}
+            <span>${toot_count(toot, 'reblogs')}</span>
         </a>
         <a class="favourites ${toot_active(toot, 'favourites')}" href="${toot.url}" rel="nofollow" aria-label="${i18nfavourites}">
-            ${toot_count(toot, 'favourites')}
+            <span>${toot_count(toot, 'favourites')}</span>
         </a>`;
 
     const loadComments = async () => {

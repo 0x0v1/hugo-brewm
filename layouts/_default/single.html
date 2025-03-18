@@ -133,8 +133,26 @@
     </div>
     {{ if $commentIsEnable -}}
         <div class="pagewidth">
+            {{- $bsky := or .Params.bsky .Params.bluesky .Params.bsky_thread }}
             {{- if $commentIsToot }}
                 {{ partial "fediverse.html" (dict "instance" $instance "user" $username "post" $post "tootContent" $commentIsToot "commentUrl" $commentUrl) }}
+            {{- else if $bsky }}
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.4/purify.min.js" referrerpolicy="no-referrer"
+                    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>    
+            {{- end }}
+            {{- with $bsky }}
+                <ul id="bsky-comments" role="feed" style="padding: 0; list-style: none; width: var(--golden-ratio)"
+                    data-uri="{{ . }}"></ul>
+                {{- $bskyJs := resources.Get "js/bsky-comments.js" | minify }}
+                {{- if eq hugo.Environment "development" }}
+                    <script src="{{ $bskyJs.Permalink }}"></script>
+                {{- else }}
+                    {{- with $bskyJs | fingerprint "sha384" }}
+                        <script src="{{ $bskyJs.Permalink }}"
+                            integrity="{{ .Data.Integrity }}" crossorigin="anonymous"
+                            ></script>
+                    {{- end }}
+                {{- end }}
             {{- end }}
         </div>
     {{- end }}
