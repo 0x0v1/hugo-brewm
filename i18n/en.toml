@@ -57,11 +57,11 @@
 [contrib]
     other = "Contribute"
 [contribAskReader]
-    other = "Enjoy this article?"
+    other = "Value our work?"
 [contribAskReaderResponse]
-    other = "Awesome!"
+    other = ""
 [contribAskReaderToContribute]
-    other = "You can also support me by making the following contributions:"
+    other = "You can support us by making the following contributions:"
 [contribCoffeeStat]
     other = "Did you know that"
 [contribCoffeeStatPost]

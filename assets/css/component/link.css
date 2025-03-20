@@ -59,14 +59,20 @@ ul.rounded a:hover {
 }
 
 ul.invert a {
-    opacity: 0.86;
+    opacity: 1;
     border: unset;
-    background: var(--fg) !important;
-    color: var(--bg) !important;
+    background: transparent !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+ul.invert a::after {
+    content: ' →';
+    margin-left: 0.5em;
 }
 
 ul.invert a:visited {
-    color: var(--bg);
+    color: white;
 }
 
 ul.has-hash a {
